@@ -1,0 +1,71 @@
+{
+    "PF2EHP": {
+        "Settings": {
+            "Browser": {
+                "Name": "Preview Compendium Browser results",
+                "Hint": "Show a preview card when hovering over a result in the PF2e Compendium Browser."
+            },
+            "Links": {
+                "Name": "Preview item and actor links",
+                "Hint": "Show a preview card when hovering over an item or actor link in journals, chat, sheets and descriptions."
+            },
+            "Delay": {
+                "Name": "Hover delay (ms)",
+                "Hint": "How long the pointer must rest on something before its preview appears."
+            },
+            "Modifier": {
+                "Name": "Require a key",
+                "Hint": "Only show previews while this key is held down.",
+                "None": "None (always show)",
+                "Shift": "Shift",
+                "Control": "Ctrl",
+                "Alt": "Alt"
+            },
+            "Width": {
+                "Name": "Card width (px)",
+                "Hint": "Width of the preview card."
+            }
+        },
+        "Card": {
+            "Source": "Source",
+            "Traditions": "Traditions",
+            "Cast": "Cast",
+            "Range": "Range",
+            "Area": "Area",
+            "Targets": "Targets",
+            "Defense": "Defense",
+            "Duration": "Duration",
+            "Sustained": "sustained",
+            "Cost": "Cost",
+            "Requirements": "Requirements",
+            "Prerequisites": "Prerequisites",
+            "Price": "Price",
+            "Bulk": "Bulk",
+            "Usage": "Usage",
+            "Damage": "Damage",
+            "Group": "Group",
+            "Category": "Category",
+            "ACBonus": "AC Bonus",
+            "DexCap": "Dex Cap",
+            "Strength": "Strength",
+            "CheckPenalty": "Check Penalty",
+            "SpeedPenalty": "Speed Penalty",
+            "Hardness": "Hardness",
+            "HP": "HP",
+            "BT": "BT",
+            "Perception": "Perception",
+            "AC": "AC",
+            "Fort": "Fort",
+            "Ref": "Ref",
+            "Will": "Will",
+            "Stealth": "Stealth",
+            "Spell": "Spell",
+            "Cantrip": "Cantrip",
+            "Focus": "Focus",
+            "Ritual": "Ritual",
+            "Creature": "Creature",
+            "Hazard": "Hazard",
+            "OpenSheet": "Click to open sheet"
+        }
+    }
+}

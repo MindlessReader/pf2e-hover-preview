@@ -1,0 +1,140 @@
+.pf2e-hover-preview {
+    --hp-bg: #1c1a19;
+    --hp-text: #e8e2d8;
+    --hp-muted: #b9b0a3;
+    --hp-header: #5e2a24;
+    --hp-header-text: #f0e2c8;
+    --hp-border: #7a6a55;
+    --hp-tag-bg: #522e2c;
+    --hp-tag-border: #d5c08f;
+    --hp-rule: #6b5d4c;
+
+    position: fixed;
+    z-index: 10000;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--hp-bg);
+    color: var(--hp-text);
+    border: 1px solid var(--hp-border);
+    border-radius: 4px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    font-family: var(--font-body, "Signika", sans-serif);
+    font-size: var(--font-size-14, 14px);
+    line-height: 1.35;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+.pf2e-hover-preview .hp-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.35em 0.6em;
+    background: var(--hp-header);
+    color: var(--hp-header-text);
+    font-variant: small-caps;
+    font-size: 1.25em;
+    font-weight: 600;
+    flex: none;
+}
+
+.pf2e-hover-preview .hp-img {
+    width: 1.5em;
+    height: 1.5em;
+    border: none;
+    object-fit: contain;
+    flex: none;
+}
+
+.pf2e-hover-preview .hp-title {
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pf2e-hover-preview .hp-title:hover {
+    text-decoration: underline;
+}
+
+.pf2e-hover-preview .hp-glyph {
+    font-variant: normal;
+    font-size: 1em;
+    color: var(--hp-header-text);
+}
+
+.pf2e-hover-preview .hp-kind {
+    margin-left: auto;
+    white-space: nowrap;
+    padding-left: 0.5em;
+}
+
+.pf2e-hover-preview .hp-body {
+    padding: 0.5em 0.65em 0.6em;
+    overflow-y: auto;
+}
+
+.pf2e-hover-preview .hp-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 0.45em;
+}
+
+.pf2e-hover-preview .hp-tag {
+    padding: 0.1em 0.4em;
+    background: var(--hp-tag-bg);
+    border: 2px solid var(--hp-tag-border);
+    color: #fff;
+    font-size: 0.85em;
+    font-weight: 700;
+    font-variant: small-caps;
+    text-transform: capitalize;
+    letter-spacing: 0.02em;
+}
+
+.pf2e-hover-preview .hp-tag.hp-rarity.uncommon { background: #98513d; }
+.pf2e-hover-preview .hp-tag.hp-rarity.rare { background: #002664; }
+.pf2e-hover-preview .hp-tag.hp-rarity.unique { background: #54166e; }
+
+.pf2e-hover-preview .hp-props {
+    padding-bottom: 0.4em;
+    margin-bottom: 0.4em;
+    border-bottom: 1px solid var(--hp-rule);
+}
+
+.pf2e-hover-preview .hp-line {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1em;
+}
+
+.pf2e-hover-preview .hp-description > :first-child { margin-top: 0; }
+.pf2e-hover-preview .hp-description > :last-child { margin-bottom: 0; }
+
+.pf2e-hover-preview .hp-description p {
+    margin: 0.4em 0;
+}
+
+.pf2e-hover-preview .hp-description hr {
+    border: none;
+    border-top: 1px solid var(--hp-rule);
+    margin: 0.5em 0;
+}
+
+.pf2e-hover-preview a.content-link,
+.pf2e-hover-preview a.inline-roll,
+.pf2e-hover-preview span[data-pf2-check],
+.pf2e-hover-preview a[data-pf2-check] {
+    color: var(--color-text-dark-primary, #191813);
+}
+
+.pf2e-hover-preview .hp-description h1,
+.pf2e-hover-preview .hp-description h2,
+.pf2e-hover-preview .hp-description h3,
+.pf2e-hover-preview .hp-description h4 {
+    color: var(--hp-header-text);
+    border: none;
+    margin: 0.5em 0 0.25em;
+}
