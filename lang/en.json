@@ -27,7 +27,6 @@
             }
         },
         "Card": {
-            "Source": "Source",
             "Traditions": "Traditions",
             "Cast": "Cast",
             "Range": "Range",

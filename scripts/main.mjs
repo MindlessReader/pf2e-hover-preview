@@ -387,17 +387,12 @@ function propertyLines(lines) {
     return out.join("");
 }
 
-function sourceLine(doc) {
-    const title = doc.system.publication?.title || doc.system.details?.publication?.title;
-    return title ? [[L("Source"), esc(title)]] : [];
-}
-
 async function itemCard(item) {
     const sys = item.system;
     let kind = game.i18n.localize(`TYPES.Item.${item.type}`);
     let level = item.level ?? sys.level?.value ?? null;
     let glyph = null;
-    const lines = [sourceLine(item)];
+    const lines = [];
 
     switch (item.type) {
         case "spell": {
@@ -506,7 +501,7 @@ async function actorCard(actor) {
     }
 
     const mod = (stat) => (typeof stat?.mod === "number" ? esc(signed(stat.mod)) : null);
-    const lines = [sourceLine(actor)];
+    const lines = [];
     if (actor.type === "hazard") {
         lines.push([[L("Stealth"), mod(actor.skills?.stealth)]]);
     } else {
