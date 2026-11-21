@@ -210,7 +210,7 @@ async function show(source, x, y) {
     closeFrom(depth);
 
     const card = document.createElement("div");
-    card.className = "pf2e-hover-preview";
+    card.className = "pf2e-hover-preview chat-message";
     card.style.width = `${settings.width}px`;
     card.innerHTML = html;
     card.addEventListener("mouseleave", scheduleCloseCheck);
@@ -336,25 +336,35 @@ async function enrich(text, doc) {
 function header(doc, { glyph = null, kind, level = null }) {
     const levelText = level !== null && level !== undefined ? ` ${esc(level)}` : "";
     return `
-        <header class="hp-header">
-            <img class="hp-img" src="${esc(doc.img)}" alt="">
-            <span class="hp-title" data-tooltip="${esc(L("OpenSheet"))}">${esc(doc.name)}</span>
-            ${glyph ? `<span class="action-glyph hp-glyph">${esc(glyph)}</span>` : ""}
-            <span class="hp-kind">${esc(kind)}${levelText}</span>
+        <header class="card-header flexrow">
+            <img src="${esc(doc.img)}" alt="">
+            <h3><span class="hp-title" data-tooltip="${esc(L("OpenSheet"))}">${esc(doc.name)}</span>${glyph ? ` <span class="action-glyph">${esc(glyph)}</span>` : ""}</h3>
+            <h4 class="level">${esc(kind)}${levelText}</h4>
         </header>`;
+}
+
+/** Wrap card parts in PF2e's own chat-card markup so the system's styles apply. */
+function cardShell(headerHtml, tagsHtml, propsHtml, descriptionHtml) {
+    const content = [propsHtml, propsHtml && descriptionHtml ? "<hr>" : "", descriptionHtml].join("");
+    return `
+        <div class="pf2e chat-card item-card">
+            ${headerHtml}
+            ${tagsHtml}
+            ${content ? `<section class="card-content">${content}</section>` : ""}
+        </div>`;
 }
 
 function traitTags(rarity, traits) {
     const tags = [];
     if (rarity && rarity !== "common") {
         const label = game.i18n.localize(CONFIG.PF2E.rarityTraits?.[rarity] ?? rarity);
-        tags.push(`<span class="hp-tag hp-rarity ${esc(rarity)}">${esc(label)}</span>`);
+        tags.push(`<span class="tag rarity ${esc(rarity)}">${esc(label)}</span>`);
     }
     for (const t of traits) {
         const tip = t.description ? ` data-tooltip="${esc(t.description)}"` : "";
-        tags.push(`<span class="hp-tag"${tip}>${esc(t.label)}</span>`);
+        tags.push(`<span class="tag"${tip}>${esc(t.label)}</span>`);
     }
-    return tags.length ? `<div class="hp-traits">${tags.join("")}</div>` : "";
+    return `<section class="tags paizo-style" data-tooltip-class="pf2e">${tags.join("")}</section>`;
 }
 
 function itemTraits(item) {
@@ -373,11 +383,8 @@ function propertyLines(lines) {
     const out = lines
         .map((line) => line.filter(([, value]) => value !== null && value !== undefined && value !== ""))
         .filter((line) => line.length)
-        .map(
-            (line) =>
-                `<div class="hp-line">${line.map(([label, value]) => `<span><strong>${esc(label)}</strong> ${value}</span>`).join("")}</div>`,
-        );
-    return out.length ? `<div class="hp-props">${out.join("")}</div>` : "";
+        .map((line) => `<p>${line.map(([label, value]) => `<strong>${esc(label)}</strong> ${value}`).join("; ")}</p>`);
+    return out.join("");
 }
 
 function sourceLine(doc) {
@@ -435,14 +442,12 @@ async function itemCard(item) {
 
     const description = await enrich(item.description ?? sys.description?.value, item);
 
-    return [
+    return cardShell(
         header(item, { glyph, kind, level }),
-        `<div class="hp-body">`,
         traitTags(sys.traits?.rarity, itemTraits(item)),
         propertyLines(lines),
-        description ? `<div class="hp-description">${description}</div>` : "",
-        `</div>`,
-    ].join("");
+        description,
+    );
 }
 
 function physicalLines(item) {
@@ -523,14 +528,7 @@ async function actorCard(actor) {
     const text = actor.type === "hazard" ? sys.details?.description : sys.details?.publicNotes;
     const description = await enrich(text, actor);
 
-    return [
-        header(actor, { kind, level }),
-        `<div class="hp-body">`,
-        traitTags(sys.traits?.rarity, traits),
-        propertyLines(lines),
-        description ? `<div class="hp-description">${description}</div>` : "",
-        `</div>`,
-    ].join("");
+    return cardShell(header(actor, { kind, level }), traitTags(sys.traits?.rarity, traits), propertyLines(lines), description);
 }
 
 /* -------------------------------------------- */
